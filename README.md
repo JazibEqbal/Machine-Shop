@@ -1,6 +1,6 @@
 # FRONTEND for SHOP 
 
-git clone
-npm i 
-npm start
+# git clone
+# npm i 
+# npm start
 
