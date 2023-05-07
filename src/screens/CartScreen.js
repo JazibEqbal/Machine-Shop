@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
 import ShopContext from "../context/ShopContext";
-import { useParams } from "react-router-dom";
 import { Alert } from "react-bootstrap";
 import Loading from "../components/Loading";
 
@@ -8,8 +7,6 @@ const CartScreen = () => {
   const { shopInstance } = useContext(ShopContext);
   const [product, setProduct] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-
-  let { id } = useParams();
 
   const setLoaderTiming = () => {
     setTimeout(() => {
@@ -20,12 +17,18 @@ const CartScreen = () => {
   useEffect(() => {
     const getCartProduct = async () => {
       const { data } = await shopInstance.getCart();
-      setProduct(data);
       setLoaderTiming();
+      setProduct(data);
     };
     getCartProduct();
-  }, [setProduct, id, shopInstance]);
+  }, [setProduct]);
 
+  const removeProductHandler = async (id) => {
+    await shopInstance.removeFromCart(id);
+    setTimeout(() => {
+      window.location.reload(false);
+    }, 50);
+  };
   return (
     <div>
       {isLoading ? (
@@ -33,7 +36,9 @@ const CartScreen = () => {
       ) : (
         <div>
           {product.length === 0 ? (
-            <Alert className="text-white p-2 text-uppercase col-3 text-center bg-danger">OOPs!! Your Cart is Empty</Alert>
+            <Alert className="text-white p-2 text-uppercase col-3 text-center bg-danger">
+              OOPs!! Your Cart is Empty
+            </Alert>
           ) : (
             <div>
               {product.map((prod) => (
@@ -43,6 +48,14 @@ const CartScreen = () => {
                   <h2>{prod.brand}</h2>
                   <h2>{prod.price}</h2>
                   <h2>{prod.quantity}</h2>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      removeProductHandler(prod._id);
+                    }}
+                  >
+                    -1
+                  </button>
                 </div>
               ))}
             </div>

@@ -38,8 +38,7 @@ const ProductScreen = () => {
   }, [setProduct]);
 
   const submitHandler = async (e) => {
-    const res = await shopInstance.saveToCart(product, parseInt(quantity), id);
-    console.log(res);
+    await shopInstance.saveToCart(product, parseInt(quantity), id);
     navigate(`/cart/${id}?qty=${quantity}`);
   };
   return (
