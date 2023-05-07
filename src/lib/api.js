@@ -37,7 +37,7 @@ class ShopInstance {
     }
   }
 
-  async saveToCart(data,quantity, id) {
+  async saveToCart(data, quantity, id) {
     try {
       const options = {
         method: "POST",
@@ -60,7 +60,23 @@ class ShopInstance {
     try {
       const options = {
         method: "GET",
-        url: `${this.host}/cart/save`,
+        url: `${this.host}/cart/get`,
+      };
+      const response = await axios(options);
+      return response;
+    } catch (error) {
+      return error;
+    }
+  }
+
+  async removeFromCart(id) {
+    try {
+      const options = {
+        method: "DELETE",
+        url: `${this.host}/cart/remove`,
+        data: {
+          productId: id,
+        },
       };
       const response = await axios(options);
       return response;
