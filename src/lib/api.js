@@ -36,6 +36,38 @@ class ShopInstance {
       return error;
     }
   }
+
+  async saveToCart(data,quantity, id) {
+    try {
+      const options = {
+        method: "POST",
+        url: `${this.host}/cart/save`,
+        data: {
+          ...data,
+          productId: id,
+          quantity,
+        },
+      };
+      const response = await axios(options);
+      return response;
+    } catch (error) {
+      console.log("Here");
+      return error;
+    }
+  }
+
+  async getCart() {
+    try {
+      const options = {
+        method: "GET",
+        url: `${this.host}/cart/save`,
+      };
+      const response = await axios(options);
+      return response;
+    } catch (error) {
+      return error;
+    }
+  }
 }
 
 export default ShopInstance;

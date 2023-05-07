@@ -1,9 +1,9 @@
 import React from "react";
-import "./Loading.css";
+import styles from "./Loading.module.css";
 
 const Loading = () => {
   return (
-    <div className="lds-roller">
+    <div className={styles.ldsRoller}>
       <div></div>
       <div></div>
       <div></div>
