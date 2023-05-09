@@ -8,6 +8,7 @@ import ProductScreen from "./screens/ProductScreen";
 import ShopInstance from "./lib/api";
 import { ShopInstanceProvider } from "./context/ShopContext";
 import CartScreen from "./screens/CartScreen";
+import LogInSignUp from "./screens/LogInSignUp";
 
 const App = () => {
   const shopInstance = new ShopInstance(process.env.REACT_APP_BACKEND_URL);
@@ -19,6 +20,7 @@ const App = () => {
           <main className="py-3">
             <Container>
               <Routes>
+                <Route path="/user/signup" element={<LogInSignUp />} exact />
                 <Route path="/cart/:id?" element={<CartScreen />} exact />
                 <Route path="/product/:id" element={<ProductScreen />} exact />
                 <Route path="/" element={<Home />} exact />

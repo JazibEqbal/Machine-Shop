@@ -1,0 +1,23 @@
+.maxWidthInput {
+    max-width: 500px;
+}
+.buttonLogin{
+    margin-top: 20px;
+    margin-left: 5px;
+}
+.memberToggle{
+   font-size: 12px;
+   margin-left: 6px;
+   margin-top: 10px;
+}
+.buttonToggle{
+    outline: none;
+    border: none;
+    margin-left: 10px;
+    align-items: center;
+    text-transform: uppercase;
+    padding: 5px;
+}
+.buttonToggle:hover{
+    text-decoration: underline;
+}
