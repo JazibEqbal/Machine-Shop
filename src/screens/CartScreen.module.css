@@ -1,0 +1,10 @@
+.priceBold{
+    font-weight: 900;
+    font-size:x-large;
+}
+.buttonHover:hover{
+    background-color: #565454;
+}
+.buttonHover{
+    margin: 10px;
+}

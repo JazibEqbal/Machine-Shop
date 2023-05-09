@@ -13,6 +13,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import Rating from "../components/Rating";
 import ShopContext from "../context/ShopContext";
 import Loading from "../components/Loading";
+import styles from "./ProductScreen.module.css";
 
 const ProductScreen = () => {
   const { shopInstance } = useContext(ShopContext);
@@ -31,15 +32,19 @@ const ProductScreen = () => {
   useEffect(() => {
     const getAProductById = async () => {
       const { data } = await shopInstance.getAProductById(id);
+      //console.log(data);
       setProduct(data);
       setLoaderTiming();
     };
     getAProductById();
   }, [setProduct]);
-
   const submitHandler = async (e) => {
-    await shopInstance.saveToCart(product, parseInt(quantity), id);
-    navigate(`/cart/${id}?qty=${quantity}`);
+    if (shopInstance.getToken()) {
+      await shopInstance.saveToCart(product, parseInt(quantity), id);
+      navigate(`/cart/${id}?qty=${quantity}`);
+    } else {
+      navigate("/user/signup");
+    }
   };
   return (
     <div>
@@ -114,7 +119,7 @@ const ProductScreen = () => {
                   )}
                   <ListGroupItem>
                     <Button
-                      className="btn-block"
+                      className={`btn-block ${styles.addToCartButton}`}
                       type="button"
                       disabled={product.countInStock === 0}
                       onClick={submitHandler}

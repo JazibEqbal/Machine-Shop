@@ -1,7 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
 import ShopContext from "../context/ShopContext";
-import { Alert } from "react-bootstrap";
+import { Alert, Button, Col, Image, ListGroup, Row } from "react-bootstrap";
 import Loading from "../components/Loading";
+import styles from "./CartScreen.module.css";
+import { Link } from "react-router-dom";
 
 const CartScreen = () => {
   const { shopInstance } = useContext(ShopContext);
@@ -17,8 +19,11 @@ const CartScreen = () => {
   useEffect(() => {
     const getCartProduct = async () => {
       const { data } = await shopInstance.getCart();
+      // console.log(data);
+      if (data) {
+        setProduct(data);
+      }
       setLoaderTiming();
-      setProduct(data);
     };
     getCartProduct();
   }, [setProduct]);
@@ -29,40 +34,70 @@ const CartScreen = () => {
       window.location.reload(false);
     }, 50);
   };
+  const addOneProductHandler = async (id) => {
+    await shopInstance.addOne(id);
+    setTimeout(() => {
+      window.location.reload(false);
+    }, 50);
+  };
   return (
-    <div>
+    <Row>
       {isLoading ? (
         <Loading />
       ) : (
-        <div>
+        <Col md={8}>
+          <h2>Shopping Cart</h2>
           {product.length === 0 ? (
-            <Alert className="text-white p-2 text-uppercase col-3 text-center bg-danger">
+            <Alert className="text-black p-2 text-uppercase w-auto text-center bg-[rgb(52,58,54)]">
               OOPs!! Your Cart is Empty
             </Alert>
           ) : (
-            <div>
+            <ListGroup variant="flush">
               {product.map((prod) => (
-                <div key={prod._id}>
-                  <h2>{prod.name}</h2>
-                  <img src={prod.image} alt="img" />
-                  <h2>{prod.brand}</h2>
-                  <h2>{prod.price}</h2>
-                  <h2>{prod.quantity}</h2>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      removeProductHandler(prod._id);
-                    }}
-                  >
-                    -1
-                  </button>
-                </div>
+                <ListGroup.Item key={prod._id}>
+                  <Row>
+                    <Row>{prod.name}</Row>
+                    <Row>{prod.brand}</Row>
+                    <Row className={styles.priceBold}>{`Rs.${prod.price}`}</Row>
+                    <Link to={`/product/${prod._id}`}>
+                      <Col md={6}>
+                        <Image src={prod.image} alt="img" fluid rounded />
+                      </Col>
+                    </Link>
+                    <Row md={6}>
+                      <Button
+                        type="button"
+                        onClick={() => {
+                          removeProductHandler(prod._id);
+                        }}
+                        className={styles.buttonHover}
+                      >
+                        -1
+                      </Button>
+                    </Row>
+                    <Col md={4}>{`Quantity: ${prod.quantity}`}</Col>
+                    <Row md={6}>
+                      <Button
+                        type="button"
+                        onClick={() => {
+                          addOneProductHandler(prod._id);
+                        }}
+                        disabled={prod.quantity === prod.countInStock}
+                        className={styles.buttonHover}
+                      >
+                        {prod.quantity < prod.countInStock
+                          ? "+"
+                          : "Out of stock"}
+                      </Button>
+                    </Row>
+                  </Row>
+                </ListGroup.Item>
               ))}
-            </div>
+            </ListGroup>
           )}
-        </div>
+        </Col>
       )}
-    </div>
+    </Row>
   );
 };
 

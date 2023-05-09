@@ -5,17 +5,63 @@ class ShopInstance {
     this.host = host;
   }
 
-  // setCart(cartItems) {
-  //   localStorage.setItem("CartItems", JSON.stringify(cartItems));
-  // }
-  // getCart(){
-  //   return localStorage.getItem('CartItems');
-  // }
+  setToken(token) {
+    localStorage.setItem("token", token);
+  }
+  removeToken() {
+    localStorage.removeItem("token");
+  }
+  getToken() {
+    return localStorage.getItem("token");
+  }
+
+  async signUpHandler(data) {
+    try {
+      const options = {
+        method: "POST",
+        url: `${this.host}/user/register`,
+        data: {
+          ...data,
+        },
+      };
+      const res = await axios(options);
+      if (res.status === 201) {
+        this.setToken(res.data.token);
+      }
+      return res;
+    } catch (error) {
+      console.log("dd");
+      return error;
+    }
+  }
+
+  async logInHandler(data) {
+    try {
+      const options = {
+        method: "POST",
+        url: `${this.host}/user/login`,
+        data: {
+          ...data,
+        },
+      };
+      const res = await axios(options);
+      if (res.status === 201) {
+        this.setToken(res.data.token);
+      }
+      return res;
+    } catch (error) {
+      return error;
+    }
+  }
+
   async getAProductById(id) {
     try {
       const options = {
         method: "GET",
-        url: `${this.host}/v1/products/${id}`,
+        url: `${this.host}/products/${id}`,
+        headers: {
+          Authorization: `JWT ${this.getToken()}`,
+        },
       };
       const response = await axios(options);
       return response;
@@ -28,7 +74,10 @@ class ShopInstance {
     try {
       const options = {
         method: "GET",
-        url: `${this.host}/v1/products`,
+        url: `${this.host}/products`,
+        headers: {
+          Authorization: `JWT ${this.getToken()}`,
+        },
       };
       const response = await axios(options);
       return response;
@@ -42,6 +91,9 @@ class ShopInstance {
       const options = {
         method: "POST",
         url: `${this.host}/cart/save`,
+        headers: {
+          Authorization: `JWT ${this.getToken()}`,
+        },
         data: {
           ...data,
           productId: id,
@@ -51,7 +103,6 @@ class ShopInstance {
       const response = await axios(options);
       return response;
     } catch (error) {
-      console.log("Here");
       return error;
     }
   }
@@ -61,6 +112,9 @@ class ShopInstance {
       const options = {
         method: "GET",
         url: `${this.host}/cart/get`,
+        headers: {
+          Authorization: `JWT ${this.getToken()}`,
+        },
       };
       const response = await axios(options);
       return response;
@@ -74,6 +128,28 @@ class ShopInstance {
       const options = {
         method: "DELETE",
         url: `${this.host}/cart/remove`,
+        headers: {
+          Authorization: `JWT ${this.getToken()}`,
+        },
+        data: {
+          productId: id,
+        },
+      };
+      const response = await axios(options);
+      return response;
+    } catch (error) {
+      return error;
+    }
+  }
+
+  async addOne(id) {
+    try {
+      const options = {
+        method: "POST",
+        url: `${this.host}/cart/add-one`,
+        headers: {
+          Authorization: `JWT ${this.getToken()}`,
+        },
         data: {
           productId: id,
         },
