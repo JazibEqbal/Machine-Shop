@@ -26,18 +26,18 @@ const ProductScreen = () => {
   const setLoaderTiming = () => {
     setTimeout(() => {
       setIsLoading(!isLoading);
-    }, 200);
+    }, 150);
   };
 
   useEffect(() => {
     const getAProductById = async () => {
       const { data } = await shopInstance.getAProductById(id);
-      //console.log(data);
       setProduct(data);
       setLoaderTiming();
     };
     getAProductById();
   }, [setProduct]);
+
   const submitHandler = async (e) => {
     if (shopInstance.getToken()) {
       await shopInstance.saveToCart(product, parseInt(quantity), id);

@@ -11,8 +11,8 @@ const Home = () => {
 
   const setLoaderTiming = () => {
     setTimeout(() => {
-      setIsLoading(!isLoading)
-    }, 300);
+      setIsLoading(!isLoading);
+    }, 200);
   };
   useEffect(() => {
     const getAllProducts = async () => {
