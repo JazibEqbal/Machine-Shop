@@ -38,6 +38,7 @@ const LogInSignUp = () => {
     if (res.status === 201) {
       shopInstance.setToken(res.data.token);
       navigate("/");
+      window.location.reload(false);
     }
     return res;
   };
@@ -55,6 +56,7 @@ const LogInSignUp = () => {
                   type="name"
                   id="inputName"
                   name="name"
+                  required
                   className="form-control"
                   placeholder="Enter Name"
                   value={userInput.name}
@@ -74,6 +76,7 @@ const LogInSignUp = () => {
               id="inputEmail"
               name="email"
               className="form-control"
+              required
               placeholder="Enter Email"
               value={userInput.email}
               onChange={changeInputHandler}
@@ -89,6 +92,7 @@ const LogInSignUp = () => {
               type="password"
               name="password"
               id="inputPassword"
+              required
               className="form-control"
               placeholder="Enter Password"
               onChange={changeInputHandler}

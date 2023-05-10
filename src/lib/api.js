@@ -30,7 +30,6 @@ class ShopInstance {
       }
       return res;
     } catch (error) {
-      console.log("dd");
       return error;
     }
   }
@@ -77,27 +76,6 @@ class ShopInstance {
         url: `${this.host}/products`,
         headers: {
           Authorization: `JWT ${this.getToken()}`,
-        },
-      };
-      const response = await axios(options);
-      return response;
-    } catch (error) {
-      return error;
-    }
-  }
-
-  async saveToCart(data, quantity, id) {
-    try {
-      const options = {
-        method: "POST",
-        url: `${this.host}/cart/save`,
-        headers: {
-          Authorization: `JWT ${this.getToken()}`,
-        },
-        data: {
-          ...data,
-          productId: id,
-          quantity,
         },
       };
       const response = await axios(options);
@@ -157,6 +135,99 @@ class ShopInstance {
       const response = await axios(options);
       return response;
     } catch (error) {
+      return error;
+    }
+  }
+
+  async saveToCart(data, quantity, id) {
+    try {
+      const options = {
+        method: "POST",
+        url: `${this.host}/cart/save`,
+        headers: {
+          Authorization: `JWT ${this.getToken()}`,
+        },
+        data: {
+          ...data,
+          productId: id,
+          quantity,
+        },
+      };
+      const response = await axios(options);
+      return response;
+    } catch (error) {
+      return error;
+    }
+  }
+
+  async saveShippingDetails(data, amount) {
+    try {
+      const options = {
+        method: "POST",
+        url: `${this.host}/shipping/save`,
+        headers: {
+          Authorization: `JWT ${this.getToken()}`,
+        },
+        data: {
+          ...data,
+          totalPrice: amount,
+        },
+      };
+      const res = await axios(options);
+      return res;
+    } catch (error) {
+      return error;
+    }
+  }
+
+  async getUser() {
+    try {
+      const options = {
+        method: "GET",
+        url: `${this.host}/user/profile`,
+        headers: {
+          Authorization: `JWT ${this.getToken()}`,
+        },
+      };
+      const res = await axios(options);
+      return res;
+    } catch (error) {
+      return error;
+    }
+  }
+  async getAdminHandler() {
+    try {
+      const options = {
+        method: "GET",
+        url: `${this.host}/user/admin`,
+        headers: {
+          Authorization: `JWT ${this.getToken()}`,
+        },
+      };
+      const res = await axios(options);
+      return res;
+    } catch (error) {
+      return error;
+    }
+  }
+
+  async postProductAdmin(data) {
+    try {
+      const options = {
+        method: "POST",
+        url: `${this.host}/user/admin/create/product`,
+        headers: {
+          Authorization: `JWT ${this.getToken()}`,
+        },
+        data: {
+          ...data,
+        },
+      };
+      const res = await axios(options);
+      console.log(res);
+      return res;
+    } catch (error) {
+      console.log("here");
       return error;
     }
   }
