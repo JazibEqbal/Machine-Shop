@@ -14,6 +14,8 @@ import Payment from "./screens/Payment";
 import MyOrders from "./screens/MyOrders";
 import Dashboard from "./screens/Admin/Dashboard";
 import PostProduct from "./screens/Admin/PostProduct";
+import Users from "./screens/Admin/Users";
+import AllOrdersByAUser from "./screens/Admin/AllOrdersByAUser";
 
 const App = () => {
   const [isAdmin, setIsAdmin] = useState(false);
@@ -39,6 +41,8 @@ const App = () => {
             <Container>
               <Routes>
                 <Route path="/user/my/orders" element={<MyOrders />} exact />
+                {isAdmin && <Route path="/admin/get/all/orders/:id" element={<AllOrdersByAUser />} exact />} 
+                {isAdmin && <Route path="/admin/get/all/users" element={<Users />} exact />}
                 {isAdmin && <Route path="/admin/post/product" element={<PostProduct />} exact />}
                 {isAdmin && <Route path="/admin" element={<Dashboard />} exact />}
                 <Route path="/order/payment" element={<Payment />} exact />

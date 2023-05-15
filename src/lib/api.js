@@ -180,11 +180,11 @@ class ShopInstance {
     }
   }
 
-  async getUser() {
+  async getAllUserAdmin() {
     try {
       const options = {
         method: "GET",
-        url: `${this.host}/user/profile`,
+        url: `${this.host}/user/all`,
         headers: {
           Authorization: `JWT ${this.getToken()}`,
         },
@@ -195,6 +195,7 @@ class ShopInstance {
       return error;
     }
   }
+
   async getAdminHandler() {
     try {
       const options = {
@@ -228,6 +229,22 @@ class ShopInstance {
       return res;
     } catch (error) {
       console.log("here");
+      return error;
+    }
+  }
+
+  async getAllOrdersAdmin(id) {
+    try {
+      const options = {
+        method: "GET",
+        url: `${this.host}/user/admin/get/all/orders/${id}`,
+        headers: {
+          Authorization: `JWT ${this.getToken()}`,
+        },
+      };
+      const res = await axios(options);
+      return res;
+    } catch (error) {
       return error;
     }
   }
