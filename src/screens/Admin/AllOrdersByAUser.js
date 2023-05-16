@@ -37,6 +37,7 @@ const AllOrdersByAUser = () => {
               <Row>{`Is Delivered? ${
                 order.isDelivered === false ? "No" : "Yes"
               }`}</Row>
+              <Row>{`Order ID: ${order._id}`}</Row>
             </div>
           </div>
         ))}

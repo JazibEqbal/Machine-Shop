@@ -30,17 +30,19 @@ const ProductScreen = () => {
   };
 
   useEffect(() => {
-    const getAProductById = async () => {
+    const getProductById = async () => {
       const { data } = await shopInstance.getAProductById(id);
       setProduct(data);
       setLoaderTiming();
     };
-    getAProductById();
+    getProductById();
   }, [setProduct]);
 
   const submitHandler = async (e) => {
     if (shopInstance.getToken()) {
-      await shopInstance.saveToCart(product, parseInt(quantity), id);
+      delete product._id;
+     const res= await shopInstance.saveToCart(product, parseInt(quantity), id);
+     console.log(res)
       navigate(`/cart/${id}?qty=${quantity}`);
     } else {
       navigate("/user/signup");

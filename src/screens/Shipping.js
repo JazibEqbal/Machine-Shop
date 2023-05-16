@@ -18,7 +18,7 @@ const Shipping = () => {
 
   const saveShippingHandler = async (e) => {
     e.preventDefault();
-    console.log(userInput);
+    //console.log(userInput);
     await shopInstance.saveShippingDetails(userInput, totalAmount);
     navigate("/order/payment");
   };
