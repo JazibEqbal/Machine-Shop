@@ -92,7 +92,8 @@ const CartScreen = () => {
                         <div className={styles.buttonGroupMargin}>
                           <Button
                             type="button"
-                            onClick={() => {
+                            onClick={(e) => {
+                              e.preventDefault();
                               removeProductHandler(prod._id);
                             }}
                             className={`${styles.buttonRemove} btn btn-dark`}
@@ -106,7 +107,8 @@ const CartScreen = () => {
                         <div className={styles.buttonGroupMargin}>
                           <Button
                             type="button"
-                            onClick={() => {
+                            onClick={(e) => {
+                              e.preventDefault();
                               addOneProductHandler(prod._id);
                             }}
                             disabled={prod.quantity === prod.countInStock}

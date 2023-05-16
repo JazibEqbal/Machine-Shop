@@ -53,6 +53,22 @@ class ShopInstance {
     }
   }
 
+  async getallProducts() {
+    try {
+      const options = {
+        method: "GET",
+        url: `${this.host}/products`,
+        headers: {
+          Authorization: `JWT ${this.getToken()}`,
+        },
+      };
+      const response = await axios(options);
+      return response;
+    } catch (error) {
+      return error;
+    }
+  }
+
   async getAProductById(id) {
     try {
       const options = {
@@ -69,13 +85,18 @@ class ShopInstance {
     }
   }
 
-  async getallProducts() {
+  async saveToCart(data, quantity, id) {
     try {
       const options = {
-        method: "GET",
-        url: `${this.host}/products`,
+        method: "POST",
+        url: `${this.host}/cart/save`,
         headers: {
           Authorization: `JWT ${this.getToken()}`,
+        },
+        data: {
+          ...data,
+          productId: id,
+          quantity,
         },
       };
       const response = await axios(options);
@@ -139,27 +160,6 @@ class ShopInstance {
     }
   }
 
-  async saveToCart(data, quantity, id) {
-    try {
-      const options = {
-        method: "POST",
-        url: `${this.host}/cart/save`,
-        headers: {
-          Authorization: `JWT ${this.getToken()}`,
-        },
-        data: {
-          ...data,
-          productId: id,
-          quantity,
-        },
-      };
-      const response = await axios(options);
-      return response;
-    } catch (error) {
-      return error;
-    }
-  }
-
   async saveShippingDetails(data, amount) {
     try {
       const options = {
@@ -180,11 +180,27 @@ class ShopInstance {
     }
   }
 
-  async getAllUserAdmin() {
+  async getAllOrders() {
     try {
       const options = {
         method: "GET",
-        url: `${this.host}/user/all`,
+        url: `${this.host}/get/orders`,
+        headers: {
+          Authorization: `JWT ${this.getToken()}`,
+        },
+      };
+      const response = await axios(options);
+      return response;
+    } catch (error) {
+      return error;
+    }
+  }
+
+  async getAdminHandler() {
+    try {
+      const options = {
+        method: "GET",
+        url: `${this.host}/user/admin`,
         headers: {
           Authorization: `JWT ${this.getToken()}`,
         },
@@ -196,11 +212,11 @@ class ShopInstance {
     }
   }
 
-  async getAdminHandler() {
+  async getAllUserAdmin() {
     try {
       const options = {
         method: "GET",
-        url: `${this.host}/user/admin`,
+        url: `${this.host}/user/all`,
         headers: {
           Authorization: `JWT ${this.getToken()}`,
         },
