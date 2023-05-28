@@ -179,7 +179,7 @@ class ShopInstance {
       return error;
     }
   }
-
+//my orders page
   async getAllOrders() {
     try {
       const options = {
@@ -195,7 +195,7 @@ class ShopInstance {
       return error;
     }
   }
-
+//ADMIN -- Get Admin
   async getAdminHandler() {
     try {
       const options = {
@@ -211,7 +211,7 @@ class ShopInstance {
       return error;
     }
   }
-
+//get all registered users who are not admins
   async getAllUserAdmin() {
     try {
       const options = {
@@ -227,7 +227,7 @@ class ShopInstance {
       return error;
     }
   }
-
+//post a new product by admin
   async postProductAdmin(data) {
     try {
       const options = {
@@ -249,6 +249,7 @@ class ShopInstance {
     }
   }
 
+  //view all orders for a user in admin page
   async getAllOrdersAdmin(id) {
     try {
       const options = {

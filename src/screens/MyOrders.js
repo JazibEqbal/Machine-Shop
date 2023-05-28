@@ -8,12 +8,12 @@ const MyOrders = () => {
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
-    const getProductById = async () => {
+    const getOrders = async () => {
       const { data } = await shopInstance.getAllOrders();
-      console.log(data);
+      //console.log(data);
       setOrders(data);
     };
-    getProductById();
+    getOrders();
   }, [setOrders]);
 
   return (
