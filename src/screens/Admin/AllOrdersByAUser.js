@@ -22,25 +22,31 @@ const AllOrdersByAUser = () => {
     <div>
       <h2>All Orders</h2>
       <div>
-        {allOrder.map((order) => (
-          <div key={order._id} className="card rounded mb-4 ml-2">
-            <div className="card-body">
-              <Row>{`Name: ${order.delieveryName}`}</Row>
-              <Row>{`Product Name: ${order.name}`}</Row>
-              <Row>{`Brand: ${order.brand}`}</Row>
-              <Row>{`Total Cart Value: Rs.${order.totalPrice}`}</Row>
-              <Row>{`Delivery address: ${order.address}`}</Row>
-              <Row>{`Phone Number: ${order.phone}`}</Row>
-              <Row>{`City: ${order.city}`}</Row>
-              <Row>{`Zip-Code: ${order.zipcode}`}</Row>
-              <Row>{`Shipping Fee: ${order.shippingPrice}`}</Row>
-              <Row>{`Is Delivered? ${
-                order.isDelivered === false ? "No" : "Yes"
-              }`}</Row>
-              <Row>{`Order ID: ${order._id}`}</Row>
-            </div>
+        {allOrder.length === 0 ? (
+          <h5 className="mt-4">User has no orders to display</h5>
+        ) : (
+          <div>
+            {allOrder.map((order) => (
+              <div key={order._id} className="card rounded mb-4 ml-2">
+                <div className="card-body">
+                  <Row>{`Name: ${order.delieveryName}`}</Row>
+                  <Row>{`Product Name: ${order.name}`}</Row>
+                  <Row>{`Brand: ${order.brand}`}</Row>
+                  <Row>{`Total Cart Value: Rs.${order.totalPrice}`}</Row>
+                  <Row>{`Delivery address: ${order.address}`}</Row>
+                  <Row>{`Phone Number: ${order.phone}`}</Row>
+                  <Row>{`City: ${order.city}`}</Row>
+                  <Row>{`Zip-Code: ${order.zipcode}`}</Row>
+                  <Row>{`Shipping Fee: ${order.shippingPrice}`}</Row>
+                  <Row>{`Is Delivered? ${
+                    order.isDelivered === false ? "No" : "Yes"
+                  }`}</Row>
+                  <Row>{`Order ID: ${order._id}`}</Row>
+                </div>
+              </div>
+            ))}
           </div>
-        ))}
+        )}
       </div>
     </div>
   );
